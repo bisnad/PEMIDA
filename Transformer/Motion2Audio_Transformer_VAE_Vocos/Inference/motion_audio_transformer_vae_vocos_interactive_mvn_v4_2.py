@@ -34,7 +34,7 @@ print(f'using {device} device')
 
 # mocap parameters
 #mocap_data_file = "E:/data/mocap/Diane/Solos/ZHdK_10.10.2025/fbx_50hz/trial-001.fbx"
-mocap_data_file = "E:/data/mocap/Eleni/fbx_50hz/Eline_Session-002.fbx"
+mocap_data_file = "E:/data/mocap/Eleni/Solos/ZHdK_04.12.2025/fbx_50hz/Eline_Session-002.fbx"
 mocap_pos_scale = 0.1
 mocap_fps = 50
 mocap_input_seq_length = 68
@@ -43,8 +43,8 @@ mocap_live_source = "MocapPlayer"
 
 # audio parameters
 print(sd.query_devices())
-audio_data_file = "E:/data/audio/Diane/48khz/4d69949b.wav"
-#audio_data_file = "E:/data/audio/Eleni/4_5870821179501060412.wav"
+#audio_data_file = "E:/data/audio/Diane/48khz/4d69949b.wav"
+audio_data_file = "E:/data/audio/Eleni/4_5870821179501060412.wav"
 audio_output_device = 7
 audio_sample_rate = 48000
 audio_channels = 1
@@ -87,10 +87,10 @@ audio_latents_mean_file = "../motion_audio_transformer_vae_vocos_v2/results_Dian
 audio_latents_std_file = "../motion_audio_transformer_vae_vocos_v2/results_Diane_Father_v4/stat/latents_std.pt"
 """
 
-encoder_weights_file = "../../AudioTransform/vae_vocos_v2/results_audio_vae_vocos_cnn_Eleni/weights/encoder_weights_epoch_400"
-decoder_weights_file = "../../AudioTransform/vae_vocos_v2/results_audio_vae_vocos_cnn_Eleni/weights/decoder_weights_epoch_400"
-audio_latents_mean_file = "../motion_audio_transformer_vae_vocos_v2/results_Eleni_Take2_v4_2/stat/latents_mean.pt"
-audio_latents_std_file = "../motion_audio_transformer_vae_vocos_v2/results_Eleni_Take2_v4_2/stat/latents_std.pt"
+encoder_weights_file = "../../../VAE/Audio_VAE/Audio_VAE_Vocos/Training/results_Eleni_audio_vae_vocos_cnn_ld32_kld0.1/weights/encoder_weights_epoch_400"
+decoder_weights_file = "../../../VAE/Audio_VAE/Audio_VAE_Vocos/Training/results_Eleni_audio_vae_vocos_cnn_ld32_kld0.1/weights/decoder_weights_epoch_400"
+audio_latents_mean_file = "../Training/results_Eleni_Take1_v4_2/stat/latents_mean.pt"
+audio_latents_std_file = "../Training/results_Eleni_Take1_v4_2/stat/latents_std.pt"
 
 # Transformer parameters
 transformer_layer_count = 6
@@ -100,7 +100,7 @@ transformer_dropout = 0.1
 pos_encoding_max_length = mocap_input_seq_length
 #transformer_weights_file = "../motion_audio_transformer_vae_vocos_v2/results_Diane_Father_v4/weights/transformer_weights_epoch_400"
 #transformer_weights_file = "../motion_audio_transformer_vae_vocos_v2/results_Eleni_Take1_v4_1/weights/transformer_weights_epoch_200"
-transformer_weights_file = "../motion_audio_transformer_vae_vocos_v2/results_Eleni_Take2_v4_2/weights/transformer_weights_epoch_200"
+transformer_weights_file = "../Training/results_Eleni_Take1_v4_2/weights/transformer_weights_epoch_200"
 
 # -------------------------------------------------------
 # Data Loading Functions

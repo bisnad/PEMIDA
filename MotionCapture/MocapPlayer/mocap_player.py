@@ -19,22 +19,29 @@ motion_player.config = {
 
 """
 motion_player.config = { 
-    "file_name": "E:/Data/mocap/Diane/Solos/ZHdK_10.10.2025/fbx_50hz/trial-002.fbx",
-    "fps": 50
+    "file_name": "E:/Data/mocap/Diane/Solos/ZHdK_10.10.2025/fbx_60hz/trial-002.fbx",
+    "fps": 60
     }
 """
+
+motion_player.config = { 
+    "file_name": "E:/Data/mocap/Eleni/Solos/ZHdK_04.12.2025/fbx_30hz/Eline_Session-002.fbx",
+    "fps": 30
+    }
 
 """
 motion_player.config = { 
-    "file_name": "E:/Data/mocap/Eleni/Solos/ZHdK_04.12.2025/fbx_50hz/Eline_Session-003.fbx",
+    "file_name": "E:/Data/mocap/Eleni/Solos/ZHdK_04.12.2025/fbx_50hz/Eline_Session-002.fbx",
     "fps": 50
     }
 """
 
+"""
 motion_player.config = { 
     "file_name": "E:/Data/mocap/motionbank/Movement_Vocabulary/Amber_Pansters/mocap_skeleton_mb.fbx",
     "fps": 50
     }
+"""
 
 """
 motion_player.config = { 

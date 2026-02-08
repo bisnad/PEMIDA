@@ -106,6 +106,19 @@ def qnormalize_np(q):
     
     return q_norm
 
+def q_conj_np(q):
+    """
+    Conjugate of quaternions [..., 4] with [w, x, y, z] layout.
+    q can be shape (4,) or (N, 4) or any [..., 4].
+    """
+    q_orig_shape = q.shape
+    q_conj = q.copy()
+    q_conj = np.reshape(q, (-1, 4))
+    q_conj[..., 1:] *= -1
+    q_conj = np.reshape(q_conj, q_orig_shape)
+    return q_conj
+
+
 def qmul_np(q, r):
     q = torch.from_numpy(q).contiguous()
     r = torch.from_numpy(r).contiguous()

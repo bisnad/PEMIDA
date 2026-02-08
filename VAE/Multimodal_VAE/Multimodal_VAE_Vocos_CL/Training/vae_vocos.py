@@ -72,7 +72,7 @@ mocap_std_file = "results/stats/mocap_std.pt"
 Audio Settings
 """
 
-audio_data_path = "E:/data/audio/Eleni/"
+audio_data_path = "E:/data/audio/Eleni/48khz/"
 audio_data_files = ["4_5870821179501060412.wav"]
 audio_valid_ranges = [[2.71, 825.75]]
 
@@ -145,10 +145,10 @@ motion_vae_norm_loss_scale = 0.1
 motion_vae_pos_loss_scale = 0.1
 motion_vae_quat_loss_scale = 1.0
 
-load_motion_vae_weights = False
+load_motion_vae_weights = True
 save_motion_vae_weights = True
-motion_vae_encoder_weights_file = "results/weights/motion_vae_encoder_weights_epoch_600"
-motion_vae_decoder_weights_file = "results/weights/motion_vae_decoder_weights_epoch_600"
+motion_vae_encoder_weights_file = "results_Eleni_Take2_mocap8_kld0.1_cl1.0/weights/motion_encoder_weights_epoch_400"
+motion_vae_decoder_weights_file = "results_Eleni_Take2_mocap8_kld0.1_cl1.0/weights/motion_decoder_weights_epoch_400"
 
 """
 Audio VAE Training Settings
@@ -156,10 +156,10 @@ Audio VAE Training Settings
 
 audio_vae_rec_loss_scale = 5.0
 
-load_audio_vae_weights = False
+load_audio_vae_weights = True
 save_audio_vae_weights = True
-audio_vae_encoder_weights_file = "results/weights/audio_vae_encoder_weights_epoch_600"
-audio_vae_decoder_weights_file = "results/weights/audio_vae_decoder_weights_epoch_600"
+audio_vae_encoder_weights_file = "results_Eleni_Take2_mocap8_kld0.1_cl1.0/weights/audio_encoder_weights_epoch_400"
+audio_vae_decoder_weights_file = "results_Eleni_Take2_mocap8_kld0.1_cl1.0/weights/audio_decoder_weights_epoch_400"
 
 """
 Mocap Visualisation Settings
@@ -1714,6 +1714,7 @@ def train(train_dataloader, test_dataloader, epochs):
         contrastive_scheduler.step()
         
     return loss_history
+
 """
 Fit Model
 """
@@ -2041,7 +2042,7 @@ Recontruct Original Motion
 
 motion_start_sec = 130.0
 motion_duration_sec = 10.0
-motion_offset = motion_vae_mocap_length // 4 
+motion_offset = motion_vae_mocap_length // 2
 base_pose = np.reshape(mocap_motion_orig[0], (mocap_joint_count, mocap_joint_dim))
 
 motion_indices = [ frame_index for frame_index in range(int(motion_start_sec * mocap_fps), int((motion_start_sec + motion_duration_sec) * mocap_fps), motion_offset)]

@@ -38,12 +38,25 @@ Audio Settings
 """
 
 """
+# Diane Version
+
 audio_file_path = "E:/Data/audio/Diane/48khz/"
 audio_files = ["4d69949b.wav"]
+
+# Eleni Version
+
+audio_file_path = "E:/data/audio/Eleni/"
+audio_files = ["4_5870821179501060412.wav"]
+
+# Tim Version
+
+audio_file_path = "E:/data/audio/Tim/48khz/"
+audio_files = ["SajuHariPlacePrizeEntry2010.wav"]
+
 """
 
-audio_file_path = "E:/data/audio/Motion2Audio/stocos/"
-audio_files = ["Take3_RO_37-4-1_HQ_audio_crop_48khz.wav"]
+audio_file_path = "E:/data/audio/Tim/48khz/"
+audio_files = ["SajuHariPlacePrizeEntry2010.wav"]
 
 audio_sample_rate = 48000 # numer of audio samples per sec
 audio_channels = 1
@@ -119,10 +132,10 @@ vae_conv_channel_counts = [ 16, 32, 64, 128 ]
 vae_conv_kernel_size = (5, 3)
 vae_dense_layer_sizes = [ 512 ]
 
-save_weights = True
-load_weights = False
-encoder_weights_file = "results/weights/encoder_weights_epoch_400"
-decoder_weights_file = "results/weights/decoder_weights_epoch_400"
+save_weights = False
+load_weights = True
+encoder_weights_file = "results_Tim_audio_vae_vocos_cnn_ld32_kld0.1/weights/encoder_weights_epoch_400"
+decoder_weights_file = "results_Tim_audio_vae_vocos_cnn_ld32_kld0.1/weights/decoder_weights_epoch_400"
 
 """
 Training Settings
@@ -708,47 +721,49 @@ def train(dataloader, epochs):
         
     return loss_history
 
-# fit model
-loss_history = train(dataloader, epochs)
+if save_weights == True:
 
-def save_loss_as_image(loss_history, image_file_name):
-    keys = list(loss_history.keys())
-    epochs = len(loss_history[keys[0]])
+    # fit model
+    loss_history = train(dataloader, epochs)
     
-    for key in keys:
-        plt.plot(range(epochs), loss_history[key], label=key)
+    def save_loss_as_image(loss_history, image_file_name):
+        keys = list(loss_history.keys())
+        epochs = len(loss_history[keys[0]])
         
-    plt.xlabel('Epochs')
-    plt.ylabel('Loss')
-    plt.legend()
-    plt.savefig(image_file_name)
-    plt.show()
-
-def save_loss_as_csv(loss_history, csv_file_name):
-    with open(csv_file_name, 'w') as csv_file:
-        csv_columns = list(loss_history.keys())
-        csv_row_count = len(loss_history[csv_columns[0]])
-        
-        
-        csv_writer = csv.DictWriter(csv_file, fieldnames=csv_columns, delimiter=',', lineterminator='\n')
-        csv_writer.writeheader()
+        for key in keys:
+            plt.plot(range(epochs), loss_history[key], label=key)
+            
+        plt.xlabel('Epochs')
+        plt.ylabel('Loss')
+        plt.legend()
+        plt.savefig(image_file_name)
+        plt.show()
     
-        for row in range(csv_row_count):
+    def save_loss_as_csv(loss_history, csv_file_name):
+        with open(csv_file_name, 'w') as csv_file:
+            csv_columns = list(loss_history.keys())
+            csv_row_count = len(loss_history[csv_columns[0]])
+            
+            
+            csv_writer = csv.DictWriter(csv_file, fieldnames=csv_columns, delimiter=',', lineterminator='\n')
+            csv_writer.writeheader()
         
-            csv_row = {}
-        
-            for key in loss_history.keys():
-                csv_row[key] = loss_history[key][row]
-
-            csv_writer.writerow(csv_row)
-
-
-save_loss_as_csv(loss_history, "results/histories/history_{}.csv".format(epochs))
-save_loss_as_image(loss_history, "results/histories/history_{}.png".format(epochs))
-
-# save model weights
-torch.save(encoder.state_dict(), "results/weights/encoder_weights_epoch_{}".format(epochs))
-torch.save(decoder.state_dict(), "results/weights/decoder_weights_epoch_{}".format(epochs))
+            for row in range(csv_row_count):
+            
+                csv_row = {}
+            
+                for key in loss_history.keys():
+                    csv_row[key] = loss_history[key][row]
+    
+                csv_writer.writerow(csv_row)
+    
+    
+    save_loss_as_csv(loss_history, "results/histories/history_{}.csv".format(epochs))
+    save_loss_as_image(loss_history, "results/histories/history_{}.png".format(epochs))
+    
+    # save model weights
+    torch.save(encoder.state_dict(), "results/weights/encoder_weights_epoch_{}".format(epochs))
+    torch.save(decoder.state_dict(), "results/weights/decoder_weights_epoch_{}".format(epochs))
 
 
 """
@@ -831,6 +846,9 @@ def create_pred_audio_window(waveform_window, file_name):
     decoder.train()
     
 test_waveform, _ = torchaudio.load("E:/Data/audio/Diane/48khz/4d69949b.wav")
+test_waveform, _ = torchaudio.load("E:/Data/audio/Diane/48khz/4d69949b.wav")
+
+
 #test_waveform, _ = torchaudio.load("E:/Data/audio/Motion2Audio/stocos/Take3_RO_37-4-1_HQ_audio_crop_48khz.wav")
 test_waveform_sample_index = audio_sample_rate * 10
 test_waveform_window = test_waveform[:, test_waveform_sample_index:test_waveform_sample_index+audio_window_length_vocos]
@@ -1042,18 +1060,36 @@ def create_pred_audio2(waveform, file_name):
     encoder.train()
     decoder.train()
 
-#test_waveform, _ = torchaudio.load("E:/Data/audio/Motion2Audio/stocos/Take1__double_Bind_HQ_audio_crop_48khz.wav")
-#test_waveform, _ = torchaudio.load("E:/Data/audio/Motion2Audio/stocos/Take1__double_Bind_HQ_audio_crop_48khz.wav")
-#test_waveform, _ = torchaudio.load("E:/Data/audio/Motion2Audio/stocos/Take2_Hibr_II_HQ_audio_crop_48khz.wav")
-#test_waveform, _ = torchaudio.load("E:/Data/audio/Motion2Audio/stocos/Take3_RO_37-4-1_HQ_audio_crop_48khz.wav")
+"""
+# Diane Version
 
 test_waveform, _ = torchaudio.load("E:/Data/audio/Diane/48khz/4d69949b.wav")
+audio_highlight_starts_sec = [5, 50, 100, 140, 160, 214, 270, 340]
+
+# Eleni Version
+
+test_waveform, _ = torchaudio.load("E:/data/audio/Eleni/4_5870821179501060412.wav")
+audio_highlight_starts_sec = [20, 130, 240, 360, 480, 540, 660, 780]
+
+# Tim Version
+
+test_waveform, _ = torchaudio.load("E:/data/audio/Tim/48khz/SajuHariPlacePrizeEntry2010.wav")
+audio_highlight_starts_sec = [5, 25, 54, 90, 106, 226, 290, 320]
+
+"""
+
+test_waveform, _ = torchaudio.load("E:/data/audio/Tim/48khz/SajuHariPlacePrizeEntry2010.wav")
+audio_highlight_starts_sec = [5, 25, 54, 90, 106, 226, 290, 320]
+
+audio_highlight_duration_sec = 25
+
+
 #test_waveform, _ = torchaudio.load("E:/Data/audio/Motion2Audio/stocos/Take3_RO_37-4-1_HQ_audio_crop_48khz.wav")
 
-test_start_times_sec = [ 20, 120, 240 ]
-test_duration_sec = 20
-
-for test_start_time_sec in test_start_times_sec:
+for test_start_time_sec in audio_highlight_starts_sec:
+    
+    test_duration_sec = audio_highlight_duration_sec
+    
     start_time_frames = test_start_time_sec * audio_sample_rate
     end_time_frames = start_time_frames + test_duration_sec * audio_sample_rate
 
@@ -1143,14 +1179,26 @@ def decode_audio_encodings(encodings, file_name):
 
 # reconstruct original waveform
 
-test_start_time_sec = 20
-test_duration_sec = 20
-start_time_frames = test_start_time_sec * audio_sample_rate
-end_time_frames = start_time_frames + test_duration_sec * audio_sample_rate
-    
-latent_vectors = encode_audio(test_waveform[:, start_time_frames:end_time_frames])
-decode_audio_encodings(latent_vectors, "results/audio/rec_audio_epochs_{}_audio_{}-{}.wav".format(epochs, test_start_time_sec, test_duration_sec))
+import pickle
 
+def export_audio_latent_vectors(latent_vectors, file_name):
+    
+    with open(file_name, "wb") as f:
+        pickle.dump(latent_vectors, f, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+for test_start_time_sec in audio_highlight_starts_sec:
+    
+    test_duration_sec = audio_highlight_duration_sec
+    
+    start_time_frames = test_start_time_sec * audio_sample_rate
+    end_time_frames = start_time_frames + test_duration_sec * audio_sample_rate
+        
+    latent_vectors = encode_audio(test_waveform[:, start_time_frames:end_time_frames])
+    decode_audio_encodings(latent_vectors, "results/audio/rec_audio_epochs_{}_audio_{}-{}.wav".format(epochs, test_start_time_sec, test_duration_sec))
+
+    create_ref_audio(test_waveform[:, start_time_frames:end_time_frames], "results/audio/audio_ref_{}-{}.wav".format(test_start_time_sec, (test_start_time_sec + test_duration_sec)))
+    export_audio_latent_vectors(latent_vectors, "results/audio/audio_latents_epochs_{}_audio_{}-{}.pkl".format(epochs, test_start_time_sec, test_duration_sec))
 
 # random walk
 # somewhat broken, needs fixing
