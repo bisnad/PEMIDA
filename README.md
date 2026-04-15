@@ -1,6 +1,6 @@
-# Motion2Audio
+# PEMIDA
 
-Motion2Audio is a research project that aims to develop AI-based tools for translating dance movements into music. These tools are designed to allow dancers to freely improvise to existing music and then use recordings of these improvisations as the basis for interactively controlling the creation of music through their body movements.
+PEMIDA (PErsonalised Music Instrument for DAncers) is a research project that aims to develop AI-based tools for translating dance movements into music. These tools are designed to allow dancers to freely improvise to existing music and then use recordings of these improvisations as the basis for interactively controlling the creation of music through their body movements.
 
 https://github.com/user-attachments/assets/904f2080-76e2-4f6d-9165-09b0d59ebc91
 
@@ -16,7 +16,7 @@ At the core of this project lies the idea that performers in contemporary dance 
 
 ### Technical Principle
 
-Motion2Audio develops machine learning models that analyze a dancer's movements and translate these movements into music through neural sound synthesis. These models are trained on recordings of dancers improvising to music. Through training, the models learn the correlations between movement and sound. Once trained, they can generate new music from movement alone.
+PEMIDA develops machine learning models that analyze a dancer's movements and translate these movements into music through neural sound synthesis. These models are trained on recordings of dancers improvising to music. Through training, the models learn the correlations between movement and sound. Once trained, they can generate new music from movement alone.
 
 ### Repository
 
@@ -45,7 +45,7 @@ Currently, the project runs as a collaboration between two researchers and three
 
 https://github.com/user-attachments/assets/31a4c7a4-bed3-44f2-87df-d9498e2440ec
 
-figure 3: Results of Motion2Audio trained on movements and audio recordings of Diane Gemsch
+figure 3: Results of PEMIDA trained on movements and audio recordings of Diane Gemsch
 
 https://github.com/user-attachments/assets/d82dc01f-1c64-4ab2-95b2-bb7d505a574f
 
